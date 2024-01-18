@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Question</title>
+  <link rel="stylesheet" href="controllerStyle.css">
+</head>
+<body>
+<header>
+  <h1>Welcome to LAST MINUTE EXAM</h1>
+  <h2>Enter a question and answer and choose a subject</h2>
+</header>
+<div class="form-container">
+  <input type="text" id="question-input" placeholder="Enter your question" />
+  <input type="text" id="answer-input" placeholder="Enter the answer" />
+
+  <select id="subject-select">
+    <option value="CSS">CSS</option>
+    <option value="EISPU">EISPU</option>
+    <option value="VC">VC</option>
+    <option value="InfmMan">InfmMan</option>
+    <option value="BS">BS</option>
+    <option value="MOSES">MOSES</option>
+
+
+    <!-- Add more subjects as needed -->
+  </select>
+
+  <button id="add-btn">Add</button>
+</div>
+<script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-firestore.js"></script>
+<script src="controllerScript.js"></script>
+</body>
+</html>

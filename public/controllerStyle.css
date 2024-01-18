@@ -1,0 +1,62 @@
+
+header {
+  background-color: #546e7a; /* Sanftere Farbe */
+  color: #fff;
+  text-align: center;
+  padding: 30px 0;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 2.5em;
+}
+
+header h2 {
+  margin: 0;
+  font-size: 1.5em;
+}
+
+body, html {
+  height: 100%;
+  margin: 0;
+  font-family: 'Roboto', sans-serif; /* Moderne Schriftart */
+  background-color: #f4f4f4; /* Hellerer Hintergrund */
+}
+
+.form-container {
+  width: 100%;
+  max-width: 80%;
+  margin: 50px auto;
+  background: #fff;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+input[type="text"], select {
+  width: 100%;
+  padding: 15px;
+  margin: 10px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  height: 20%;
+
+}
+
+button#add-btn {
+  width: 100%;
+  background-color: #4caf50; /* Grün für positive Aktionen */
+  color: white;
+  padding: 12px 25px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 5px; /* Abgerundete Ecken */
+  cursor: pointer;
+  font-size: 16px;
+}
+
+button#add-btn:hover {
+  background-color: #ac14b0;
+}

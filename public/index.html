@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LAST MINUTE EXAM</title>
+  <link rel="stylesheet" href="gameStyle.css">
+</head>
+<body>
+<header>
+  <div style="align-content: center">
+    <h1>Welcome to LAST MINUTE EXAM</h1>
+    <h2>Choose a subject and test your knowledge!</h2>
+  </div>
+</header>
+<main>
+  <div class="subject-selector">
+    <label for="subject-select">Choose a subject:</label>
+    <select id="subject-select">
+      <option value="CSS">CSS</option>
+      <option value="EISPU">EISPU</option>
+      <option value="VC">VC</option>
+      <option value="InfMan">InfMan</option>
+      <option value="BS">BS</option>
+      <option value="MOSES">MOSES</option>
+      <!-- Add more subjects as needed -->
+    </select>
+    <div>
+      <br>
+      <button id="start-game-btn">Start Game</button>
+    </div>
+    <br>
+    <div id="question-container" class="question-container">
+      <!-- Cards will be loaded here -->
+    </div>
+    <br>
+    <br>
+
+    <div>
+      <button id="next-question-btn">Next Question</button>
+    </div>
+  </div>
+<br>
+  <button class="controller-btn" onclick="window.location.href = 'controller.html'">Controller</button>
+
+
+
+</main>
+
+<script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-firestore.js"></script>
+<script src="gameScript.js"></script>
+</body>
+</html>
