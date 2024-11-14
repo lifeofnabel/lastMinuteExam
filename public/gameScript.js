@@ -9,8 +9,9 @@ document.addEventListener('DOMContentLoaded', function() {
     measurementId: "G-D3SJS32SET"
   };
   firebase.initializeApp(firebaseConfig);
-
   const db = firebase.firestore();
+
+  let currentQuestionId = null;  // Variable zur Speicherung der aktuellen Frage-ID
 
   // Hilfsfunktion zum Zufällig Auswählen eines Dokuments aus einer Liste
   function getRandomQuestion(questionsList) {
@@ -20,23 +21,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Funktion zum Laden der Fragen aus Firestore basierend auf dem Fach
   async function loadQuestions(subject) {
-    // Referenz zur 'questions'-Sammlung und die Query erstellen
-    var questionsRef = db.collection('questions');
-    var query = questionsRef.where("subject", "==", subject);
-
-    // Die Query ausführen und die Daten abrufen
+    const questionsRef = db.collection('questions');
+    const query = questionsRef.where("subject", "==", subject);
     query.get().then(function(querySnapshot) {
       const questionList = [];
       querySnapshot.forEach(function(doc) {
-        questionList.push(doc.data());
+        questionList.push({ id: doc.id, ...doc.data() });
       });
 
-      // Hier wählen wir eine zufällige Frage aus
       if(questionList.length > 0) {
         const randomQuestion = getRandomQuestion(questionList);
         displayQuestion(randomQuestion);
       } else {
-        // Handle the case where there are no questions
         console.log('No questions found for this subject');
       }
     }).catch(function(error) {
@@ -50,6 +46,7 @@ document.addEventListener('DOMContentLoaded', function() {
     questionContainer.innerHTML = ''; // Vorhandene Inhalte löschen
 
     if(questionData) {
+      currentQuestionId = questionData.id;  // Speichere die ID der aktuellen Frage
       const card = createCard(questionData);
       questionContainer.appendChild(card);
     }
@@ -71,7 +68,6 @@ document.addEventListener('DOMContentLoaded', function() {
     card.appendChild(questionDiv);
     card.appendChild(answerDiv);
 
-    // Event Listener für die Swipe-Geste, um die Antwort anzuzeigen
     card.addEventListener('click', () => {
       card.classList.toggle('flip');
     });
@@ -82,10 +78,37 @@ document.addEventListener('DOMContentLoaded', function() {
   // Event Listener für den "Start Game" Button
   document.getElementById('start-game-btn').addEventListener('click', function() {
     const selectedSubject = document.getElementById('subject-select').value;
-    loadQuestions(selectedSubject).then(r => console.log('Questions loaded'));
+    loadQuestions(selectedSubject).then(() => console.log('Questions loaded'));
   });
+
   document.getElementById('next-question-btn').addEventListener('click', function() {
     const selectedSubject = document.getElementById('subject-select').value;
-    loadQuestions(selectedSubject).then(r => console.log('Questions loaded'));
+    loadQuestions(selectedSubject).then(() => console.log('Questions loaded'));
   });
+
+  // DELETE Button Event Listener
+  document.getElementById("deleteButton").addEventListener("click", function() {
+    if (currentQuestionId) {
+      const confirmation = confirm("Do you really want to delete this question?");
+      if (confirmation) {
+        deleteDocument(currentQuestionId);
+      }
+    } else {
+      console.log("No question is currently loaded to delete.");
+    }
+  });
+
+  // Funktion zum Löschen eines Dokuments aus Firestore
+  async function deleteDocument(docId) {
+    try {
+      await db.collection("questions").doc(docId).delete();
+      console.log(`Document with ID ${docId} has been successfully deleted.`);
+      alert(`Document with ID ${docId} has been successfully deleted.`);
+      document.getElementById('question-container').innerHTML = '';  // Clear the question container after deletion
+      currentQuestionId = null;  // Reset the current question ID
+    } catch (error) {
+      console.error("Error deleting document: ", error);
+      alert("Error deleting document. Please try again.");
+    }
+  }
 });
